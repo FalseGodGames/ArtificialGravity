@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float moveForce = 10f;
+    public float move = 10f;
+    public float jumpForce = 50f;
     
     private Rigidbody2D rb;
     
@@ -21,24 +22,17 @@ public class PlayerMove : MonoBehaviour
     }
 
     void Move(){
-        if(Input.GetKeyDown (KeyCode.W))
-        {
-            rb.AddForce(Vector2.up * moveForce);
+        if(Input.GetKeyDown (KeyCode.W)){
+            rb.velocity = transform.up * jumpForce;
         }
-        
-        if(Input.GetKeyDown (KeyCode.D))
-        {
-            rb.AddForce(Vector2.right * moveForce);
+        else if(Input.GetKey (KeyCode.A)){
+            transform.Translate(Vector2.left * (Time.deltaTime * move), Space.Self);
         }
-
-        if(Input.GetKeyDown (KeyCode.S))
-        {
-            rb.AddForce(Vector2.down * moveForce);
+        else if(Input.GetKey (KeyCode.D)){
+            transform.Translate(Vector2.right * (Time.deltaTime * move), Space.Self);
         }
-        
-        if(Input.GetKeyDown (KeyCode.A))
-        {
-            rb.AddForce(Vector2.left * moveForce);
+        else{
+            transform.Translate(Vector2.zero, Space.Self);
         }
     }
 }
